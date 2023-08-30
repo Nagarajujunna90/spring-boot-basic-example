@@ -10,7 +10,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: .
-      Handler: com.example.awsdemo.AWSStreamHandler::handleRequest
+      Handler: com.example.awsdemo.config.AWSStreamHandler::handleRequest
       Runtime: java17
       AutoPublishAlias: production
       SnapStart:
