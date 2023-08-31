@@ -1,0 +1,29 @@
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: "arn:aws:ecs:eu-north-1:388362140757:task-definition/spring-sample-task-defination:1"
+        LoadBalancerInfo:
+          ContainerName: "springboot-sample"
+          ContainerPort: 90
+        # Optional properties
+        PlatformVersion: "LATEST"
+        NetworkConfiguration:
+          AwsvpcConfiguration:
+            Subnets: ["subnet-0adcca219bb39a55b","subnet-0156c7a2ae477996d"]
+            SecurityGroups: ["sg-06cf3f796f53e71da"]
+            AssignPublicIp: "ENABLED"
+        CapacityProviderStrategy:
+          - Base: 1
+            CapacityProvider: "FARGATE_SPOT"
+            Weight: 2
+          - Base: 0
+            CapacityProvider: "FARGATE"
+            Weight: 1
+Hooks:
+  - BeforeInstall: "LambdaFunctionToValidateBeforeInstall"
+  - AfterInstall: "LambdaFunctionToValidateAfterInstall"
+  - AfterAllowTestTraffic: "LambdaFunctionToValidateAfterTestTrafficStarts"
+  - BeforeAllowTraffic: "LambdaFunctionToValidateBeforeAllowingProductionTraffic"
+  - AfterAllowTraffic: "LambdaFunctionToValidateAfterAllowingProductionTraffic"
