@@ -1,5 +1,4 @@
 version: 0.2
-
 phases:
 build:
   install:
@@ -10,6 +9,8 @@ build:
       - sudo yum install docker -y
       - sudo service docker start
       - mvn test
+pre_build:
+  - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
 post_build:
   commands:
     - echo Build completed on `date`
