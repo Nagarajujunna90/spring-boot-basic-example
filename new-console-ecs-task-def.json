@@ -1,0 +1,82 @@
+{
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:388362140757:task-definition/test-serv:3",
+  "containerDefinitions": [
+    {
+      "name": "product-s",
+      "image": "388362140757.dkr.ecr.us-east-1.amazonaws.com/spring-boot-basic-example",
+      "cpu": 0, //container size is not mandatory to give
+      "portMappings": [
+        {
+          "name": "product-s-9090-tcp",
+          "containerPort": 9090,
+          "hostPort": 9090,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [],
+      "environmentFiles": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "ulimits": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "/ecs/test-serv",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        },
+        "secretOptions": []
+      }
+    }
+  ],
+  "family": "test-serv",
+  "executionRoleArn": "arn:aws:iam::388362140757:role/ecsTaskExecutionRole",
+  "networkMode": "bridge", //working with bridge type
+  "revision": 3,
+  "volumes": [],
+  "status": "ACTIVE",
+  "requiresAttributes": [
+    {
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+    }
+  ],
+  "placementConstraints": [],
+  "compatibilities": [
+    "EC2"
+  ],
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "cpu": "256", //.25 vCPU
+  "memory": "512", //.5 GB
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "registeredAt": "2023-10-06T14:50:29.941Z",
+  "registeredBy": "arn:aws:iam::388362140757:user/Nagaraju",
+  "tags": []
+}
+
+Note: We can find IP address in cluster->service->task->configuration

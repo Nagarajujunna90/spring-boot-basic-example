@@ -1,3 +1,11 @@
 server:
-  port: 9090
+  port: 5000
 
+cloud:
+    aws:
+      region:
+        static: us-east-1
+        auto: false
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRETE_ACCESS_KEY}
