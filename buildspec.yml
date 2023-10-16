@@ -3,17 +3,13 @@ phases:
   pre_build:
     commands:
       - echo Test started on `date`
-      - echo Logging in to Amazon ECR....
       - mvn package
-      - aws --version
-      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
   build:
     commands:
       - echo Build started on `date`
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo pushing to repo
 artifacts:
   files:
     - target/spring-boot-basic-example-0.0.1-SNAPSHOT.jar
