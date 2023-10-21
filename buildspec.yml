@@ -9,7 +9,7 @@ phases:
       - mvn package
       - sam package
         --template-file template.yaml
-        --s3-bucket aws-sam-cli-managed-default-samclisourcebucket-1d0qqyicsboqp
+        --s3-bucket aws-sam-cli-managed-default-samclisourcebucket-152baoukgvuca
         --output-template-file packaged-template.yml
 artifacts:
   files:

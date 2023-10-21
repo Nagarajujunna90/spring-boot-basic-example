@@ -29,7 +29,7 @@ Resources:
       Runtime: java17
       AutoPublishAlias: !Ref Stage
       DeploymentPreference:
-        Type: Canary10Percent5Minutes
+        Type: AllAtOnce
 #        Alarms:
 #          # A list of alarms that you want to monitor
 #          - !Ref AliasErrorMetricGreaterThanZeroAlarm
