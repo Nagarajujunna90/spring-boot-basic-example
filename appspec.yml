@@ -5,8 +5,8 @@ Resources:
       Properties:
         Name: Spring-Boot-Basic-Example
         Alias: production
-        CurrentVersion: 9
-        TargetVersion: 10
+        CurrentVersion: 10
+        TargetVersion: 11
 #Hooks:
 #  - BeforeAllowTraffic: "LambdaFunctionToValidateBeforeTrafficShift"
 #  - AfterAllowTraffic: "LambdaFunctionToValidateAfterTrafficShift"

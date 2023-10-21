@@ -28,6 +28,8 @@ Resources:
       Handler: com.example.config.AWSStreamHandler::handleRequest
       Runtime: java17
       AutoPublishAlias: !Ref Stage
+      #this will create CodeDeploy for us,we don't need to create anything in CodeDeploy service.
+      #it will take care everything.No need of appspec.yml also .it will update version automatically and deploy into stage environment.
       DeploymentPreference:
         Type: AllAtOnce
 #        Alarms:
