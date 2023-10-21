@@ -1,15 +1,16 @@
 version: 0.2
+
 phases:
-  pre_build:
-    commands:
-      - echo Test started on `date`
-      - mvn package
+  install:
+    runtime-versions:
+      java: corretto17
   build:
     commands:
-      - echo Build started on `date`
-  post_build:
-    commands:
-      - echo Build completed on `date`
+      - mvn package
+      - sam package
+        --template-file template.yaml
+        --s3-bucket aws-sam-cli-managed-default-samclisourcebucket-1d0qqyicsboqp
+        --output-template-file packaged-template.yml
 artifacts:
   files:
-    - target/spring-boot-basic-example-0.0.1-SNAPSHOT.jar
+    - packaged-template.yml

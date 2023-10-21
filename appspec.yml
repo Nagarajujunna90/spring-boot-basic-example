@@ -1,0 +1,12 @@
+version: 0.0
+Resources:
+  - myLambdaFunction:
+      Type: AWS::Lambda::Function
+      Properties:
+        Name: Spring-Boot-Basic-Example
+        Alias: production
+        CurrentVersion: 1
+        TargetVersion: 2
+#Hooks:
+#  - BeforeAllowTraffic: "LambdaFunctionToValidateBeforeTrafficShift"
+#  - AfterAllowTraffic: "LambdaFunctionToValidateAfterTrafficShift"
