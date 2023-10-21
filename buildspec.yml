@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto17
+  build:
+    commands:
+      - mvn package
+      - sam package
+        --template-file template.yaml
+        --s3-bucket aws-sam-cli-managed-default-samclisourcebucket-152baoukgvuca
+        --output-template-file packaged-template.yml
+artifacts:
+  files:
+    - appspec.yml
+    - packaged-template.yml
+  discard-paths: yes

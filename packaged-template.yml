@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Globals:
+  Function:
+    Timeout: 30
+  Api:
+    OpenApiVersion: 3.0.1
+Parameters:
+  Stage:
+    Type: String
+    Default: develop
+    AllowedValues:
+    - production
+    - develop
+Resources:
+  SpringBootAPI:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: spring-boot-basic-example-api
+      StageName:
+        Ref: Stage
+    Metadata:
+      SamResourceId: SpringBootAPI
+  SpringBootBasicExample:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: Spring-Boot-Basic-Example
+      Handler: com.example.config.AWSStreamHandler::handleRequest
+      Runtime: java17
+      AutoPublishAlias:
+        Ref: Stage
+      DeploymentPreference:
+        Type: Canary10Percent5Minutes
+      SnapStart:
+        ApplyOn: PublishedVersions
+      Architectures:
+      - x86_64
+      MemorySize: 2048
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        Employee:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+            RestApiId:
+              Ref: SpringBootAPI
+      CodeUri: s3://aws-sam-cli-managed-default-samclisourcebucket-1d0qqyicsboqp/20288f5a7f264f9547dcdb495aa684ec
+    Metadata:
+      SamResourceId: SpringBootBasicExample

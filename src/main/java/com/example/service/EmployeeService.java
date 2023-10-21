@@ -1,4 +1,4 @@
-package com.example.awsdemo.service;
+package com.example.service;
 
 public interface EmployeeService {
 
