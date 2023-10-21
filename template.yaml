@@ -4,15 +4,40 @@ Transform: AWS::Serverless-2016-10-31
 Globals:
   Function:
     Timeout: 30
+  #To avoid 'stage' being created when deploying the Api gateway.
+  Api:
+    OpenApiVersion: 3.0.1
+Parameters:
+  Stage:
+    Type: String
+    Default: develop
+    AllowedValues:
+      - production
+      - develop
 
 Resources:
+  SpringBootAPI:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: spring-boot-basic-example-api
+      StageName: !Ref Stage
   SpringBootBasicExample:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: Spring-Boot-Basic-Example
       Handler: com.example.config.AWSStreamHandler::handleRequest
       Runtime: java17
-      AutoPublishAlias: develop
+      AutoPublishAlias: !Ref Stage
+      DeploymentPreference:
+        Type: Canary10Percent10Minutes
+#        Alarms:
+#          # A list of alarms that you want to monitor
+#          - !Ref AliasErrorMetricGreaterThanZeroAlarm
+#          - !Ref LatestVersionErrorMetricGreaterThanZeroAlarm
+#        Hooks:
+#          # Validation Lambda functions that are run before and after traffic shifting
+#          PreTraffic: !Ref PreTrafficLambdaFunction
+#          PostTraffic: !Ref PostTrafficLambdaFunction
       SnapStart:
         ApplyOn: PublishedVersions
       Architectures:
@@ -27,3 +52,18 @@ Resources:
           Properties:
             Path: /{proxy+}
             Method: ANY
+            RestApiId:
+              Ref: SpringBootAPI
+
+
+
+#outputs:
+#  SpringBootAPI:
+#    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+#    Value: !Sub "https://${SpringBootAPI}.execute-api.${AWS::Region}.amazonaws.com/${Stage}/{proxy+}"
+#  SpringBootBasicExampleLambda:
+#    Description: "SpringBootBasicExample Lambda Function ARN"
+#    Value: !GetAtt SpringBootBasicExample.Arn
+#  SpringBootBasicExampleIamRole:
+#    Description: "Implicit IAM Role created for Hello World function"
+#    Value: !GetAtt SpringBootBasicExample.Arn
