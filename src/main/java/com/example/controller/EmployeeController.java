@@ -10,7 +10,7 @@ public class EmployeeController {
 
     @GetMapping("/employee")
     public ResponseEntity<?> getEmployee() {
-        return new ResponseEntity<>("Latest version Nagaraju", HttpStatus.CREATED);
+        return new ResponseEntity<>("Latest version Hammayya", HttpStatus.CREATED);
     }
 
 

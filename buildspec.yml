@@ -13,4 +13,6 @@ phases:
         --output-template-file packaged-template.yml
 artifacts:
   files:
+    - appspec.yml
     - packaged-template.yml
+  discard-paths: yes
