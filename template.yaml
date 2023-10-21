@@ -9,9 +9,10 @@ Resources:
   SpringBootBasicExample:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: com.example.awsdemo.config.AWSStreamHandler::handleRequest
+      FunctionName: Spring-Boot-Basic-Example
+      Handler: com.example.config.AWSStreamHandler::handleRequest
       Runtime: java17
-      AutoPublishAlias: dev
+      AutoPublishAlias: develop
       SnapStart:
         ApplyOn: PublishedVersions
       Architectures:

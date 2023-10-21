@@ -1,6 +1,6 @@
-package com.example.awsdemo.controller;
+package com.example.controller;
 
-import com.example.awsdemo.model.Employee;
+import com.example.model.Employee;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ public class EmployeeController {
 
     @GetMapping("/employee")
     public ResponseEntity<?> getEmployee() {
-        return new ResponseEntity<>("Hello world version 2", HttpStatus.CREATED);
+        return new ResponseEntity<>("Hello world version 4", HttpStatus.CREATED);
     }
 
 
